@@ -6,7 +6,7 @@ import { loadDataFromStorage } from './util';
 // 创建一个 Axios 实例
 const instance = axios.create({
   // baseURL: 'https://api.ldjun.cn:9000', // 设置基础URL，根据你的实际情况修改
-  baseURL: 'http://localhost:9000', // 设置基础URL，根据你的实际情况修改
+  baseURL: import.meta.env.VITE_APP_BASE_API, // 设置基础URL，根据你的实际情况修改
   timeout: 30000, // 请求超时时间（毫秒）
 });
 
