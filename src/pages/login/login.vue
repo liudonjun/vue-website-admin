@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted, ref, h } from 'vue';
-import { NForm, NFormItem, NInput, NAvatar, NButton, useMessage, FormRules, useNotification } from 'naive-ui';
+import { onMounted, ref } from 'vue';
+import { NForm, NFormItem, NInput, NButton, useMessage, FormRules, useNotification } from 'naive-ui';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '../../store/auth';
 
