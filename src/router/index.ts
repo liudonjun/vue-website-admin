@@ -1,6 +1,8 @@
 import Layout from "../layout/index.vue";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import { loadDataFromStorage } from "../utils/util";
+import { createDiscreteApi } from 'naive-ui'
+const { loadingBar } = createDiscreteApi(['loadingBar'])
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -57,15 +59,22 @@ router.beforeEach((to, from, next) => {
   const isAuthenticated = !!loadDataFromStorage('token'); // 这里使用一个简单的本地存储标志来表示是否已认证
   if (isAuthenticated && to.path === '/login') {
     // 如果已登录且试图访问登录页面，则重定向到首页
+    loadingBar.start()
     next({ path: '/' });
   } else if (to.matched.some(record => record.meta.hasAuth) && !isAuthenticated) {
+    loadingBar.start()
     next({
       path: '/login',
       query: { redirect: to.fullPath }
     });
   } else {
+    loadingBar.start()
     next();
   }
+});
+
+router.afterEach(() => {
+  loadingBar.finish()
 });
 
 export default router;

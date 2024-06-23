@@ -5,8 +5,8 @@ import { loadDataFromStorage } from './util';
 
 // 创建一个 Axios 实例
 const instance = axios.create({
-  baseURL: 'https://api.ldjun.cn:9000', // 设置基础URL，根据你的实际情况修改
-  // baseURL: 'https://localhost:9000', // 设置基础URL，根据你的实际情况修改
+  // baseURL: 'https://api.ldjun.cn:9000', // 设置基础URL，根据你的实际情况修改
+  baseURL: 'http://localhost:9000', // 设置基础URL，根据你的实际情况修改
   timeout: 30000, // 请求超时时间（毫秒）
 });
 
@@ -25,11 +25,11 @@ instance.interceptors.request.use(
   }
 );
 
-// 响应拦截器
+// 响应拦截器 
 instance.interceptors.response.use(
   (response) => {
     // 对响应数据做点什么
-    return response.data;
+    return response;
   },
   (error) => {
     // 对响应错误做点什么

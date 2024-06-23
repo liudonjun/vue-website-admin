@@ -5,7 +5,7 @@
  * @returns 
  */
 export function loadDataFromStorage(key: string) {
-  const target = localStorage.getItem(key)
+  const target = localStorage.getItem(key) || ''
   return target ? JSON.parse(target) : null
 }
 
