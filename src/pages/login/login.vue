@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { NForm, NFormItem, NInput, NButton, useMessage, FormRules } from 'naive-ui';
+import { onMounted, ref, h } from 'vue';
+import { NForm, NFormItem, NInput, NAvatar, NButton, useMessage, FormRules, useNotification } from 'naive-ui';
 import { storeToRefs } from 'pinia';
 import { useAuthStore } from '../../store/auth';
 
@@ -11,6 +11,30 @@ const form = ref({
   email: '',
   password: ''
 });
+
+const notification = useNotification()
+
+const initNotification = () => {
+  notification.create({
+    title: "通知",
+    description: '测试账号',
+    content: `账号：test@qq.com
+密码：123456`,
+    // avatar: () =>
+    //   h(NAvatar, {
+    //     size: 'small',
+    //     round: true,
+    //     src: 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'
+    //   }),
+    onAfterLeave: () => {
+      // message.success("Wouldn't it be Nice")
+    }
+  })
+}
+
+onMounted(() => {
+  initNotification()
+})
 
 const store = useAuthStore();
 const { token } = storeToRefs(store);
@@ -137,6 +161,7 @@ function handleSubmit(e: MouseEvent) {
       width: 50%;
       height: 100%;
       flex-direction: row; // 屏幕宽度大于768px时，修改为行方向
+
       .left-box {
         display: none;
       }
@@ -225,7 +250,7 @@ function handleSubmit(e: MouseEvent) {
   .enter-y {
     animation: enter-y 0.5s ease-in-out forwards;
   }
-  
+
 
   @keyframes enter-x {
     from {
