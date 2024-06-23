@@ -28,25 +28,27 @@ const routes: Array<RouteRecordRaw> = [
           title: "仪表盘",
           hasAuth: true
         }
-      }
+      },
+      {
+        path: 'user',
+        component: () => import('../pages/user/user.vue'),
+        name: 'User',
+        meta: {
+          title: "用户管理",
+          hasAuth: true
+        }
+      },
+      {
+        path: 'role',
+        component: () => import('../pages/roleModule/roleManage/role.vue'),
+        name: 'Role',
+        meta: {
+          title: "角色管理",
+          hasAuth: true
+        }
+      },
     ]
   },
-  // {
-  //   path: "/",
-  //   component: Layout,
-  //   name: "MainLayout",
-  //   meta: {
-  //     title: "主页",
-  //   },
-  //   redirect: '/dashboard',
-  //   children: [
-  //     {
-  //       path: 'dashboard',
-  //       component: () => import('../pages/dashboard/index.vue'),
-  //       name: 'Dashboard'
-  //     }
-  //   ]
-  // }
 ];
 
 const router = createRouter({
