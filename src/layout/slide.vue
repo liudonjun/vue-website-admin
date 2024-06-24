@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { MenuOption, NIcon, NSwitch, NLayoutSider, NMenu } from 'naive-ui';
 import { Component, h, ref } from 'vue';
-import { HomeOutline as HomeIcon } from '@vicons/ionicons5'
+import { HomeOutline as HomeIcon, Flashlight, FlashlightOutline } from '@vicons/ionicons5'
 import { useThemeStore } from '../store/theme';
 import { useLayoutStore } from '../store/layout';
 import { useRouter } from 'vue-router';
@@ -47,20 +47,38 @@ const handleUpdateValue = (key: string, _: MenuOption) => {
 }
 
 </script>
-
+<!-- DarkModeRound DarkTheme24Filled -->
 <template>
   <n-layout-sider class="enter-x" v-if="!isMobile" bordered collapse-mode="width" :collapsed-width="64" :width="240"
     :collapsed="collapsed" show-trigger @collapse="collapsed = true" @expand="collapsed = false">
-    <n-menu v-model:value="checkedRouteName" :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22"
-      :options="menuOptions" @update:value="handleUpdateValue" />
-    <!-- <NButton @click="themeStore.togger">切换主题</NButton> -->
-    <n-switch @click="themeStore.togger">
+    <n-menu content-class="slide-box" style="height: 100%;" v-model:value="checkedRouteName" :collapsed="collapsed"
+      :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" @update:value="handleUpdateValue" />
+    <n-switch size="large" class="sw-box" @click="themeStore.togger">
       <template #checked>
-        暗黑模式
+        <n-icon>
+          <Flashlight />
+        </n-icon>
       </template>
       <template #unchecked>
-        白天模式
+        <n-icon>
+          <FlashlightOutline />
+        </n-icon>
       </template>
     </n-switch>
   </n-layout-sider>
 </template>
+
+<style lang="scss" scoped>
+::v-deep(.n-layout-sider-scroll-container) {
+  display: flex;
+  flex-direction: column;
+
+  .n-menu {
+    flex: 1;
+  }
+
+  .sw-box {
+    padding: 20px 0;
+  }
+}
+</style>
