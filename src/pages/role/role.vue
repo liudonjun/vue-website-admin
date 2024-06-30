@@ -5,9 +5,7 @@
         <!-- 筛选项 -->
         <n-card bordered>
           <n-space>
-            <n-select style="width: 200px;" v-model:value="id" :options="roleOptions" placeholder="请选择角色" />
             <n-button @click="getTableData">筛选</n-button>
-            <n-button @click="handleResetFilters">重置</n-button>
             <n-button type="primary" @click="showFormDrawer(true)">创建</n-button>
           </n-space>
         </n-card>
@@ -45,14 +43,12 @@
 <script setup lang="ts">
 import SvgIcon from '@/components/base/SvgIcon.vue';
 import { ref, onMounted, h, computed } from 'vue'
-import { NLayout, NDrawer, NDrawerContent, NForm, NSelect, NFormItem, NLayoutContent, NSpace, NCard, NInput, NPagination, NButton, NDataTable, FormInst, useMessage, useDialog } from 'naive-ui'
+import { NLayout, NDrawer, NDrawerContent, NForm, NFormItem, NLayoutContent, NSpace, NCard, NInput, NPagination, NButton, NDataTable, FormInst, useMessage, useDialog } from 'naive-ui'
 import usePagination from '@/hooks/usePagination'
 import { UserDto } from '@/types/userDto';
 import { HttpStatus } from '@/types/httpStatus';
 import { fetchCreateRole, fetchDeleteRole, fetchListRole, fetchUpdateRole } from '@/api/role';
 
-const id = ref()
-const roleOptions = ref([])
 
 const filters = ref({
   name: undefined
@@ -275,12 +271,6 @@ const columns = [
     }
   }
 ]
-
-const handleResetFilters = () => {
-  filters.value.name = undefined
-  getTableData()
-}
-
 
 </script>
 

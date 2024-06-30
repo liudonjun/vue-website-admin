@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { NIcon, NDropdown } from 'naive-ui'
-import { MenuSharp, ExitOutline } from '@vicons/ionicons5'
+import { MenuSharp } from '@vicons/ionicons5'
 import { useLayoutStore } from '@/store/layout'
 import { useAuthStore } from '@/store/auth'
 import { storeToRefs } from 'pinia';
 import { useThemeStore } from '@/store/theme';
+import SvgIcon from '@/components/base/SvgIcon.vue';
 
 const layoutStore = useLayoutStore()
 
@@ -57,10 +58,12 @@ const handleSelect = (key: 'logout' | 'update' | 'theme') => {
       <div>
         <!-- <n-avatar round size="small" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" /> -->
         <!-- @click="authStore.logout" -->
+        <!-- <n-input style="width: 200px;"></n-input> -->
         <n-dropdown trigger="click" :options="options" @select="handleSelect">
-          <n-icon class="logout" size="30">
+          <SvgIcon class="logout" icon="MdMore" style="color:red;width: 30px;height: 30px" />
+          <!-- <n-icon  size="30">
             <ExitOutline />
-          </n-icon>
+          </n-icon> -->
         </n-dropdown>
       </div>
     </div>

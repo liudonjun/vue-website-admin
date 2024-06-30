@@ -1,6 +1,7 @@
 import { useResize } from '@/hooks/useResize'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
 export const useLayoutStore = defineStore('layoutStore', () => {
 
@@ -16,7 +17,15 @@ export const useLayoutStore = defineStore('layoutStore', () => {
   }
 
   // 当前路由名称
-  const checkedRouteName = ref('Dashboard')
+  const checkedRouteName = ref()
+
+  const route = useRoute()
+
+  // 初始获取路由配置项
+  onMounted(() => {
+    checkedRouteName.value = route.name
+  })
+
 
   useResize(() => {
     isMobile.value = window.innerWidth <= 768
