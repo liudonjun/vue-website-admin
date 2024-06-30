@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { loadDataFromStorage, saveDataToStorage } from '../utils/util'
+import { loadDataFromStorage, saveDataToStorage } from '@/utils/util'
 
 const USER_INFO_KEY = 'userInfo'
 

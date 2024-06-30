@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NMessageProvider, NNotificationProvider, NConfigProvider, NLoadingBarProvider } from 'naive-ui';
+import { NMessageProvider, NDialogProvider, NNotificationProvider, NConfigProvider, NLoadingBarProvider } from 'naive-ui';
 import { useThemeStore } from './store/theme';
 import { storeToRefs } from 'pinia';
 
@@ -13,7 +13,9 @@ const { themeClass } = storeToRefs(themeStore)
     <n-notification-provider>
       <n-loading-bar-provider>
         <n-message-provider>
-          <RouterView></RouterView>
+          <n-dialog-provider>
+            <RouterView></RouterView>
+          </n-dialog-provider>
         </n-message-provider>
       </n-loading-bar-provider>
     </n-notification-provider>

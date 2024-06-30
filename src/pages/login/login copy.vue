@@ -23,7 +23,7 @@ import { GameControllerOutline } from '@vicons/ionicons5';
 import { ref } from 'vue';
 import { NForm, NFormItem, NInput, NButton, NIcon, useMessage, FormRules } from 'naive-ui';
 import { storeToRefs } from 'pinia';
-import { useAuthStore } from '../../store/auth';
+import { useAuthStore } from '@/store/auth';
 
 const message = useMessage();
 const loginForm = ref<InstanceType<typeof NForm>>();

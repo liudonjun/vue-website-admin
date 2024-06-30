@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { MenuOption, NIcon, NDrawer, NMenu, NButton } from 'naive-ui';
+import { MenuOption, NIcon, NDrawer, NMenu } from 'naive-ui';
 import { ref, h, Component } from 'vue';
 import { HomeOutline as HomeIcon } from '@vicons/ionicons5'
-import { useThemeStore } from '../store/theme';
-import { useLayoutStore } from '../store/layout';
+import { useThemeStore } from '@/store/theme';
+import { useLayoutStore } from '@/store/layout';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import SvgIcon from '@/components/base/SvgIcon.vue';
 
 const layoutStore = useLayoutStore()
 const { hasDrawer, checkedRouteName } = storeToRefs(layoutStore)
@@ -49,6 +50,22 @@ const themeStore = useThemeStore()
   <n-drawer v-model:show="hasDrawer" placement="left" :width="240" :mask-closable="true">
     <n-menu v-model:value="checkedRouteName" :collapsed="collapsed" :collapsed-width="64" :collapsed-icon-size="22"
       :options="menuOptions" @update:value="handleUpdateValue" />
-    <NButton @click="themeStore.togger">切换主题</NButton>
+      <SvgIcon class="sw-box" icon="LightModeFilled" @click="themeStore.togger()" style="width: 30px;height: 30px;margin: 0 auto;" />
   </n-drawer>
 </template>
+
+<style lang="scss" scoped>
+::v-deep(.n-drawer-container) {
+  display: flex;
+  flex-direction: column;
+  background: red;
+
+  .n-menu {
+    flex: 1;
+  }
+
+  .sw-box {
+    padding: 20px 0;
+  }
+}
+</style>

@@ -1,4 +1,4 @@
-import { useResize } from '../hooks/useResize'
+import { useResize } from '@/hooks/useResize'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 

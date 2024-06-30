@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { NForm, NFormItem, NInput, NButton, useMessage, FormRules, useNotification } from 'naive-ui';
 import { storeToRefs } from 'pinia';
-import { useAuthStore } from '../../store/auth';
+import { useAuthStore } from '@/store/auth';
 
 const message = useMessage();
 const loginForm = ref<InstanceType<typeof NForm>>();
@@ -73,7 +73,7 @@ function handleSubmit(e: MouseEvent) {
         </div>
       </div>
       <div class="my-auto">
-        <img src="../../assets/svg/login-box-bg.svg" alt="">
+        <img src="@/assets/svg/login-box-bg.svg" alt="">
         <div class="mt-10 font-medium text-white -enter-x">
           <span class="inline-block mt-4 text-3xl"> 开箱即用的中后台管理系统</span>
         </div>
@@ -119,7 +119,7 @@ function handleSubmit(e: MouseEvent) {
     width: 100%;
     height: 100%;
     margin-left: -48%;
-    background-image: url('../../assets/svg/login-bg.svg');
+    background-image: url('@/assets/svg/login-bg.svg');
     background-repeat: no-repeat;
     background-position: 100%;
     background-size: auto 100%;

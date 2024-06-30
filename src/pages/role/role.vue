@@ -5,7 +5,7 @@
         <!-- 筛选项 -->
         <n-card bordered>
           <n-space>
-            <n-input v-model:value="filters.username" placeholder="用户名" clearable style="width: 200px;" />
+            <n-select style="width: 200px;" v-model:value="id" :options="roleOptions" placeholder="请选择角色" />
             <n-button @click="getTableData">筛选</n-button>
             <n-button @click="handleResetFilters">重置</n-button>
             <n-button type="primary" @click="showFormDrawer(true)">创建</n-button>
@@ -25,14 +25,11 @@
     <n-drawer v-model:show="visable" :width="502" placement="right">
       <n-drawer-content :title="drawerTitle">
         <n-form ref="formRef" :label-width="80" :model="ruleForm" :rules="rules">
-          <n-form-item label="用户名" path="username">
-            <n-input v-model:value="ruleForm.username" placeholder="输入用户名" />
+          <n-form-item label="角色名" path="name">
+            <n-input v-model:value="ruleForm.name" placeholder="输入用户名" />
           </n-form-item>
-          <n-form-item label="邮箱" path="email">
-            <n-input :disabled="!hasAdd" v-model:value="ruleForm.email" placeholder="输入邮箱" />
-          </n-form-item>
-          <n-form-item v-if="hasAdd" label="密码" path="password">
-            <n-input v-model:value="ruleForm.password" placeholder="输入密码" />
+          <n-form-item label="角色标识" path="key">
+            <n-input :disabled="!hasAdd" v-model:value="ruleForm.key" placeholder="输入邮箱" />
           </n-form-item>
           <n-form-item>
             <n-button attr-type="button" @click="onSubmit">
@@ -46,16 +43,19 @@
 </template>
 
 <script setup lang="ts">
+import SvgIcon from '@/components/base/SvgIcon.vue';
 import { ref, onMounted, h, computed } from 'vue'
-import { NLayout, NDrawer, NDrawerContent, NForm, NFormItem, NLayoutContent, NSpace, NCard, NInput, NPagination, NButton, NDataTable, FormInst, useMessage, useDialog } from 'naive-ui'
-import { fetchCreateUser, fetchDeleteUser, fetchUpdateUser, fetchUserList } from '@/api/user'
+import { NLayout, NDrawer, NDrawerContent, NForm, NSelect, NFormItem, NLayoutContent, NSpace, NCard, NInput, NPagination, NButton, NDataTable, FormInst, useMessage, useDialog } from 'naive-ui'
 import usePagination from '@/hooks/usePagination'
 import { UserDto } from '@/types/userDto';
 import { HttpStatus } from '@/types/httpStatus';
-import SvgIcon from '@/components/base/SvgIcon.vue';
+import { fetchCreateRole, fetchDeleteRole, fetchListRole, fetchUpdateRole } from '@/api/role';
+
+const id = ref()
+const roleOptions = ref([])
 
 const filters = ref({
-  username: undefined
+  name: undefined
 })
 
 const {
@@ -73,16 +73,14 @@ onMounted(() => {
 
 const ruleForm = ref<RuleFormData>({
   id: undefined,
-  username: undefined,
-  email: undefined,
-  password: undefined,
+  name: undefined,
+  key: undefined,
 })
 
 interface RuleFormData {
   id: undefined | string
-  username: undefined | string
-  email: undefined | string
-  password: undefined | string
+  name: undefined | string
+  key: undefined | string
 }
 
 const rules = ref({
@@ -119,13 +117,12 @@ const showFormDrawer = (type: boolean, row?: UserDto) => {
   visable.value = true
 }
 
-const createUser = async () => {
+const createRole = async () => {
   const params = {
-    username: ruleForm.value.username,
-    email: ruleForm.value.email,
-    password: ruleForm.value.password
+    name: ruleForm.value.name,
+    key: ruleForm.value.key,
   }
-  const { data: response } = await fetchCreateUser(params)
+  const { data: response } = await fetchCreateRole(params)
   if (response.code == HttpStatus.OK) {
     message.success('User updated successfully')
     visable.value = false
@@ -133,12 +130,12 @@ const createUser = async () => {
   }
 }
 
-const updaetUser = async () => {
+const updaetRole = async () => {
   const params = {
-    username: ruleForm.value.username,
-    email: ruleForm.value.email,
+    name: ruleForm.value.name,
+    key: ruleForm.value.key,
   }
-  const { data: response } = await fetchUpdateUser(ruleForm.value.id, params)
+  const { data: response } = await fetchUpdateRole(ruleForm.value.id, params)
   if (response.code == HttpStatus.OK) {
     message.success('User updated successfully')
     visable.value = false
@@ -148,8 +145,8 @@ const updaetUser = async () => {
 
 const dialog = useDialog()
 
-const deleteUser = async (row: any) => {
-  const { data: response } = await fetchDeleteUser(row.id)
+const deleteRole = async (row: any) => {
+  const { data: response } = await fetchDeleteRole(row.id)
   if (response.code == HttpStatus.OK) {
     message.success('User delete successfully')
     visable.value = false
@@ -164,7 +161,7 @@ const showDelDialog = (row: UserDto) => {
     positiveText: '确定',
     negativeText: '不确定',
     onPositiveClick: () => {
-      deleteUser(row)
+      deleteRole(row)
     },
   })
 }
@@ -180,9 +177,9 @@ const onSubmit = (e: MouseEvent) => {
   formRef.value?.validate(async (errors) => {
     if (!errors) {
       if (hasAdd.value) {
-        createUser()
+        createRole()
       } else {
-        updaetUser()
+        updaetRole()
       }
     }
   })
@@ -200,9 +197,9 @@ const getTableData = async () => {
   const params = {
     pageIndex: currentPage.value,
     pageSize: pageSize.value,
-    username: filters.value.username
+    name: filters.value.name
   }
-  const { data: response } = await fetchUserList(params)
+  const { data: response } = await fetchListRole(params)
   tableData.value = response.data?.result
 
   setTotal(response.data?.total || 0)
@@ -211,8 +208,8 @@ const getTableData = async () => {
 
 const columns = [
   // { title: 'ID', key: 'id' },
-  { title: '用户名', key: 'username' },
-  { title: '邮箱', key: 'email' },
+  { title: '角色名', key: 'name' },
+  { title: '角色标识', key: 'key' },
   { title: '创建时间', key: 'created_at' },
   { title: '更新时间', key: 'updated_at' },
   {
@@ -220,6 +217,24 @@ const columns = [
       return h(
         'div',
         [
+          h(
+            NButton,
+            {
+              strong: true,
+              tertiary: true,
+              size: 'small',
+              renderIcon: () =>
+                h(SvgIcon, {
+                  icon: 'AdminPanelSettingsFilled', // 将'icon'属性作为props传递
+                  style: 'width: 20px; height: 20px' // 也可以在这里直接设置样式
+                })
+              ,
+              type: 'primary',
+              onClick: () => showFormDrawer(false, row),
+              style: { marginRight: '8px' } // 调整按钮之间的间距
+            },
+            '配置权限'
+          ),
           h(
             NButton,
             {
@@ -262,7 +277,7 @@ const columns = [
 ]
 
 const handleResetFilters = () => {
-  filters.value.username = undefined
+  filters.value.name = undefined
   getTableData()
 }
 
@@ -277,4 +292,4 @@ const handleResetFilters = () => {
   padding: 0 24px;
   font-size: 20px;
 }
-</style>
+</style>import { fetchCreateRole, fetchUpdateRole, fetchDeleteRole, fetchListRole } from '@/api/role';

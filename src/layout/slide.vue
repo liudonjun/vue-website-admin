@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { MenuOption, NIcon, NSwitch, NLayoutSider, NMenu } from 'naive-ui';
+import { MenuOption, NIcon, NLayoutSider, NMenu } from 'naive-ui';
 import { Component, h, ref } from 'vue';
-import { HomeOutline as HomeIcon, Flashlight, FlashlightOutline } from '@vicons/ionicons5'
-import { useThemeStore } from '../store/theme';
-import { useLayoutStore } from '../store/layout';
+import { HomeOutline as HomeIcon } from '@vicons/ionicons5'
+import { useThemeStore } from '@/store/theme';
+import { useLayoutStore } from '@/store/layout';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
+import SvgIcon from '@/components/base/SvgIcon.vue';
 
 
 const collapsed = ref(false)
@@ -53,18 +54,7 @@ const handleUpdateValue = (key: string, _: MenuOption) => {
     :collapsed="collapsed" show-trigger @collapse="collapsed = true" @expand="collapsed = false">
     <n-menu content-class="slide-box" style="height: 100%;" v-model:value="checkedRouteName" :collapsed="collapsed"
       :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" @update:value="handleUpdateValue" />
-    <n-switch size="large" class="sw-box" @click="themeStore.togger">
-      <template #checked>
-        <n-icon>
-          <Flashlight />
-        </n-icon>
-      </template>
-      <template #unchecked>
-        <n-icon>
-          <FlashlightOutline />
-        </n-icon>
-      </template>
-    </n-switch>
+    <SvgIcon class="sw-box" icon="LightModeFilled" @click="themeStore.togger()" style="width: 30px;height: 30px;margin: 0 auto;" />
   </n-layout-sider>
 </template>
 

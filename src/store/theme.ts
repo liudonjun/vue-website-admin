@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { loadDataFromStorage, saveDataToStorage } from '../utils/util'
+import { loadDataFromStorage, saveDataToStorage } from '@/utils/util'
 import { darkTheme } from 'naive-ui'
 
 const THEME_KEY = 'theme'

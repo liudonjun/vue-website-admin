@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { loadDataFromStorage, saveDataToStorage } from '../utils/util'
-import { fetchLogin, fetchUserInfo } from '../api/user'
-import type { LoginDto } from '../types/loginDto'
+import { loadDataFromStorage, saveDataToStorage } from '@/utils/util'
+import { fetchLogin, fetchUserInfo } from '@/api/user'
+import type { LoginDto } from '@/types/loginDto'
 import { useUserStore } from './user'
 import { useRouter } from 'vue-router'
 import { useMessage, useLoadingBar } from 'naive-ui'
-import { HttpStatus } from '../types/httpStatus'
+import { HttpStatus } from '@/types/httpStatus'
 
 const TOKEN = 'token'
 

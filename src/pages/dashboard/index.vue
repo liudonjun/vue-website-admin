@@ -3,7 +3,7 @@
     <n-layout-content>
       <n-space vertical size="large" style="padding: 24px;">
         <n-row>
-          <n-col span="6">
+          <n-col span="5" style="margin-right: 10px;">
             <n-card bordered>
               <div class="stat-card">
                 <div class="stat-title">总用户数</div>
@@ -11,15 +11,15 @@
               </div>
             </n-card>
           </n-col>
-          <n-col span="6">
+          <n-col span="5" style="margin-right: 10px;">
             <n-card bordered>
               <div class="stat-card">
                 <div class="stat-title">日活跃用户</div>
-                <div class="stat-value">567</div>
+                <div class="stat-value">557</div>
               </div>
             </n-card>
           </n-col>
-          <n-col span="6">
+          <n-col span="5" style="margin-right: 10px;">
             <n-card bordered>
               <div class="stat-card">
                 <div class="stat-title">新注册用户</div>
@@ -27,7 +27,7 @@
               </div>
             </n-card>
           </n-col>
-          <n-col span="6">
+          <n-col span="5" style="margin-right: 10px;">
             <n-card bordered>
               <div class="stat-card">
                 <div class="stat-title">收入</div>
@@ -37,7 +37,7 @@
           </n-col>
         </n-row>
         <n-row>
-          <n-col span="16">
+          <n-col span="15" style="margin-right: 10px;">
             <n-card title="用户增长趋势" bordered>
               <!-- 这里可以放置图表，例如 ECharts 图表 -->
               <div class="chart-placeholder">图表组件</div>

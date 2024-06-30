@@ -1,7 +1,15 @@
 // axiosConfig.js
 
 import axios from 'axios';
-import { loadDataFromStorage } from './util';
+import { loadDataFromStorage } from '@/utils/util';
+import { createPinia, setActivePinia } from 'pinia';
+import { useAuthStore } from '@/store/auth';
+import { HttpStatus } from '@/types/httpStatus';
+import { createDiscreteApi } from 'naive-ui';
+
+setActivePinia(createPinia());
+
+const { loadingBar } = createDiscreteApi(['loadingBar'])
 
 // 创建一个 Axios 实例
 const instance = axios.create({
@@ -17,10 +25,12 @@ instance.interceptors.request.use(
     // 例如，可以在请求头中添加认证信息
     const token = loadDataFromStorage('token') || ''
     config.headers.Authorization = `Bearer ${token}`;
+    loadingBar.start()
     return config;
   },
   (error) => {
     // 对请求错误做些什么
+    loadingBar.error()
     return Promise.reject(error);
   }
 );
@@ -28,11 +38,21 @@ instance.interceptors.request.use(
 // 响应拦截器 
 instance.interceptors.response.use(
   (response) => {
+    // TOKENN 过期
+    if (response.data.code == HttpStatus.INTERNAL_SERVER_ERROR && response.data.message == 'Unauthorized') {
+      const authStore = useAuthStore(); // 使用Pinia的store
+      authStore.logout(); // 调用logout方法
+    }else if (response.data.code == HttpStatus.INTERNAL_SERVER_ERROR){
+      const { message } = createDiscreteApi(['message'])
+      message.error(response.data.message)
+    }
+    loadingBar.finish()
     // 对响应数据做点什么
     return response;
   },
   (error) => {
     // 对响应错误做点什么
+    loadingBar.error()
     return Promise.reject(error);
   }
 );

@@ -1,6 +1,6 @@
-import Layout from "../layout/index.vue";
+import Layout from "@/layout/index.vue";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import { loadDataFromStorage } from "../utils/util";
+import { loadDataFromStorage } from "@/utils/util";
 import { createDiscreteApi } from 'naive-ui'
 const { loadingBar } = createDiscreteApi(['loadingBar'])
 
@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
       title: "登录",
       hasAuth: false
     },
-    component: () => import('../pages/login/login.vue'),
+    component: () => import('@/pages/login/login.vue'),
   },
   {
     path: "/",
@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'dashboard',
-        component: () => import('../pages/dashboard/index.vue'),
+        component: () => import('@/pages/dashboard/index.vue'),
         name: 'Dashboard',
         meta: {
           title: "仪表盘",
@@ -31,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'user',
-        component: () => import('../pages/user/user.vue'),
+        component: () => import('@/pages/user/user.vue'),
         name: 'User',
         meta: {
           title: "用户管理",
@@ -40,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'role',
-        component: () => import('../pages/roleModule/roleManage/role.vue'),
+        component: () => import('@/pages/role/role.vue'),
         name: 'Role',
         meta: {
           title: "角色管理",
