@@ -19,20 +19,20 @@ export default defineConfig({
       symbolId: 'icon-[dir]-[name]',
     }),
   ],
-  build: {
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // 根据库的路径或名称将它们分割到不同的chunk
-            const name = id.split('node_modules/')[1].split('/')[0];
-            return name;
-          }
-        }
-      }
-    }
-  },
+  // build: {
+  //   chunkSizeWarningLimit: 1000,
+  //   rollupOptions: {
+  //     output: {
+  //       manualChunks(id) {
+  //         if (id.includes('node_modules')) {
+  //           // 根据库的路径或名称将它们分割到不同的chunk
+  //           const name = id.split('node_modules/')[1].split('/')[0];
+  //           return name;
+  //         }
+  //       }
+  //     }
+  //   }
+  // },
   // server: {
   //   port: 5173,
   //   proxy: {
