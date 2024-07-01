@@ -47,6 +47,15 @@ const routes: Array<RouteRecordRaw> = [
           hasAuth: true
         }
       },
+      {
+        path: 'menu',
+        component: () => import('@/pages/menu/menu.vue'),
+        name: 'Menu',
+        meta: {
+          title: "菜单管理",
+          hasAuth: true
+        }
+      },
     ]
   },
 ];

@@ -43,6 +43,11 @@ const menuOptions: MenuOption[] = [
     key: 'Role',
     icon: renderSvgIcon('AdminPanelSettingsFilled')
   },
+  {
+    label: '菜单管理',
+    key: 'Menu',
+    icon: renderSvgIcon('AdminPanelSettingsFilled')
+  },
 ]
 
 const router = useRouter()
